@@ -8,6 +8,7 @@ package erastothenesprimesieve;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.TreeSet;
 
 /**
@@ -17,13 +18,24 @@ import java.util.TreeSet;
 public class ErastothenesPrimeSieve implements PrimeSieve {
 
     private ArrayList<Integer> listZahlen = new ArrayList<Integer>();
-    ArrayList<Integer> listOfMultiples = new ArrayList<Integer>();
-    private int obergrenze;
+    private TreeSet<Integer> listOfMultiples = new TreeSet<Integer>();
+    private final int obergrenze;
 
     public static void main(String[] args) {
         System.out.println("Geben Sie eine Obergrenze ein");
         Scanner scan = new Scanner(System.in, "Windows-1252");
-        int ober = Integer.parseInt(scan.nextLine());
+        int ober = 0;
+        while (ober < 1) {
+            try {
+                ober = Integer.parseInt(scan.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Fehler - Sie haben keine Zahl eingegeben");
+            }
+            if (ober < 1) {
+                System.out.println("bitte geben Sie eine positive Zahl ein");
+            }
+        }
+
         ErastothenesPrimeSieve es = new ErastothenesPrimeSieve(ober);
         es.printPrimes();
     }
@@ -76,7 +88,6 @@ public class ErastothenesPrimeSieve implements PrimeSieve {
     }
 
     private void createListOfMultiples(int number) {
-
         for (int i = 2; i < listZahlen.size(); i++) {
             listOfMultiples.add(number * i);
         }
