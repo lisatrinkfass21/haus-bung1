@@ -17,6 +17,7 @@ import java.util.TreeSet;
 public class ErastothenesPrimeSieve implements PrimeSieve {
 
     private ArrayList<Integer> listZahlen = new ArrayList<Integer>();
+    ArrayList<Integer> listOfMultiples = new ArrayList<Integer>();
     private int obergrenze;
 
     public static void main(String[] args) {
@@ -24,6 +25,7 @@ public class ErastothenesPrimeSieve implements PrimeSieve {
         Scanner scan = new Scanner(System.in, "Windows-1252");
         int ober = Integer.parseInt(scan.nextLine());
         ErastothenesPrimeSieve es = new ErastothenesPrimeSieve(ober);
+        es.printPrimes();
     }
 
     public ErastothenesPrimeSieve(int obergrenze) {
@@ -53,7 +55,7 @@ public class ErastothenesPrimeSieve implements PrimeSieve {
         System.out.println("Primzahlen: ");
         System.out.println("");
         for (int i = 0; i < listZahlen.size(); i++) {
-            System.out.print(listZahlen.get(i));
+            System.out.print(listZahlen.get(i) + " ");
         }
 
     }
@@ -70,14 +72,15 @@ public class ErastothenesPrimeSieve implements PrimeSieve {
                 it.remove();
             }
         }
+        listZahlen.remove(listOfMultiples);
     }
 
     private void createListOfMultiples(int number) {
-        ArrayList<Integer> listOfMultiples = new ArrayList<Integer>();
+
         for (int i = 2; i < listZahlen.size(); i++) {
             listOfMultiples.add(number * i);
         }
-        listZahlen.removeAll(listOfMultiples);
+
     }
 
 }
