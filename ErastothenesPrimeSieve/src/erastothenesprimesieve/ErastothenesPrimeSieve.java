@@ -6,6 +6,7 @@
 package erastothenesprimesieve;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 import java.util.TreeSet;
 
@@ -15,8 +16,8 @@ import java.util.TreeSet;
  */
 public class ErastothenesPrimeSieve implements PrimeSieve {
 
-    ArrayList<Integer> listZahlen = new ArrayList<Integer>();
-    int obergrenze;
+    private ArrayList<Integer> listZahlen = new ArrayList<Integer>();
+    private int obergrenze;
 
     public static void main(String[] args) {
         System.out.println("Geben Sie eine Obergrenze ein");
@@ -27,7 +28,7 @@ public class ErastothenesPrimeSieve implements PrimeSieve {
 
     public ErastothenesPrimeSieve(int obergrenze) {
         this.obergrenze = obergrenze;
-        for (int i = 0; i <= obergrenze; i++) {
+        for (int i = 1; i <= obergrenze; i++) {
             listZahlen.add(i);
         }
 
@@ -48,12 +49,35 @@ public class ErastothenesPrimeSieve implements PrimeSieve {
 
     @Override
     public void printPrimes() {
+        calcPrime();
         System.out.println("Primzahlen: ");
         System.out.println("");
         for (int i = 0; i < listZahlen.size(); i++) {
             System.out.print(listZahlen.get(i));
         }
-        
+
+    }
+
+    private void calcPrime() {
+        Iterator<Integer> it = listZahlen.iterator();
+        int temp = 0;
+        while (it.hasNext()) {
+            temp = it.next();
+            if (isPrime(temp)) {
+                createListOfMultiples(temp);
+            } else {
+                createListOfMultiples(temp);
+                it.remove();
+            }
+        }
+    }
+
+    private void createListOfMultiples(int number) {
+        ArrayList<Integer> listOfMultiples = new ArrayList<Integer>();
+        for (int i = 2; i < listZahlen.size(); i++) {
+            listOfMultiples.add(number * i);
+        }
+        listZahlen.removeAll(listOfMultiples);
     }
 
 }
