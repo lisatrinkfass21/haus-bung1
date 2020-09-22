@@ -8,7 +8,6 @@ package aufgabe1;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
-import java.util.Set;
 import java.util.TreeSet;
 
 /**
@@ -77,6 +76,7 @@ public class ErastothenesPrimeSieve implements PrimeSieve {
         int temp = 0;
         while (it.hasNext()) {
             temp = it.next();
+
             if (isPrime(temp)) {
                 createListOfMultiples(temp);
             } else {
@@ -89,7 +89,7 @@ public class ErastothenesPrimeSieve implements PrimeSieve {
     }
 
     private void createListOfMultiples(int number) {
-        for (int i = 2; i * number < listZahlen.size(); i++) {
+        for (int i = 2; i * number <= listZahlen.size(); i++) {
             listOfMultiples.add(number * i);
         }
 
