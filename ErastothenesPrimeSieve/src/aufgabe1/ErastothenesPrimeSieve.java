@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package erastothenesprimesieve;
+package aufgabe1;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -42,7 +42,7 @@ public class ErastothenesPrimeSieve implements PrimeSieve {
 
     public ErastothenesPrimeSieve(int obergrenze) {
         this.obergrenze = obergrenze;
-        for (int i = 1; i <= obergrenze; i++) {
+        for (int i = 2; i <= obergrenze; i++) {
             listZahlen.add(i);
         }
 
@@ -83,15 +83,21 @@ public class ErastothenesPrimeSieve implements PrimeSieve {
                 createListOfMultiples(temp);
                 it.remove();
             }
+
         }
         listZahlen.remove(listOfMultiples);
     }
 
     private void createListOfMultiples(int number) {
-        for (int i = 2; i < listZahlen.size(); i++) {
+        for (int i = 2; i * number < listZahlen.size(); i++) {
             listOfMultiples.add(number * i);
         }
 
+    }
+
+    public ArrayList<Integer> getListOfPrimes() {
+        calcPrime();
+        return listZahlen;
     }
 
 }
